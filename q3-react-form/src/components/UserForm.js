@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import FormField from './FormField';
 import { update, generateData, isFormValid } from './FormActions';
 
@@ -70,9 +71,9 @@ class UserForm extends Component {
                     placeholder: 'Enter your date of birth'
                 },
                 validation: {
-                    required: true
+                    required: false
                 },
-                valid: false,
+                valid: true,
                 touched: false,
                 validationMessage: '',
                 showLabel: true
@@ -87,9 +88,9 @@ class UserForm extends Component {
                     placeholder: 'Enter your preferred job title'
                 },
                 validation: {
-                    required: true
+                    required: false
                 },
-                valid: false,
+                valid: true,
                 touched: false,
                 validationMessage: '',
                 showLabel: true
@@ -104,10 +105,10 @@ class UserForm extends Component {
                     placeholder: 'Years of experience'
                 },
                 validation: {
-                    required: true,
+                    required: false,
                     number: true
                 },
-                valid: false,
+                valid: true,
                 touched: false,
                 validationMessage: '',
                 showLabel: true
@@ -132,6 +133,13 @@ class UserForm extends Component {
         console.log(formIsValid)
         if (formIsValid) {
             console.log(dataToSubmit)
+            axios.post(`https://api.dummyendpoint/me/profile`, dataToSubmit)
+            .then(res => {
+              console.log(res);
+              console.log('Post Success:', res.data);
+            }).catch(error => {
+                console.log("Error:", error);
+            })
         } else {
             this.setState({ formError: true })
         }
