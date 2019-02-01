@@ -33,7 +33,7 @@ class Calendar extends Component {
         const dateFormat = "dddd";
         const days = [];
 
-        let startDate = dateFns.startOfWeek(this.state.currentMonth);
+        let startDate = dateFns.startOfWeek(this.state.currentMonth, {weekStartsOn: 1});
         console.log('startDate', startDate);
 
         for (let i = 0; i < 7; i++) {
@@ -58,14 +58,19 @@ class Calendar extends Component {
 
         const dateFormat = "D";
         const rows = [];
+        console.log("monthStart:", monthStart)
+        console.log("monthEnd:", monthEnd)
+        console.log("startDate:", startDate)
+        console.log("endDate:", endDate)
 
         let days = [];
-        let day = startDate;
+        let day = dateFns.addDays(startDate, 1);
         let formattedDate = "";
 
         while (day <= endDate) {
             for (let i = 0; i < 7; i++) {
                 formattedDate = dateFns.format(day, dateFormat);
+                //formattedDate = dateFns.format(startDate, 'D');
                 const cloneDay = day;
                 days.push(
                     <div
